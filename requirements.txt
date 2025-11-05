@@ -1,1 +1,8 @@
+numpy
+matplotlib
+scipy
 noise
+einops
+python-dotenv
+openai
+ipython

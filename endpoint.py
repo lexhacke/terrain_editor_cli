@@ -1,4 +1,5 @@
 from biome_functions import *
+from splatmap_functions import get_splatmap
 
 class Master:
     def __init__(self, H, W):
@@ -55,7 +56,8 @@ class Master:
         terrain = self.biomes[0]['matrix'].copy()
         for item in self.biomes:
             terrain += item['matrix']
-        return terrain + terrain.min()
+        terrain = terrain + terrain.min()
+        return {"heights": terrain, "splat": get_splatmap(terrain)}
 
     def remove(self, index):
         """Remove a biome layer by its index.
@@ -76,10 +78,7 @@ if __name__ == "__main__":
     ]
     for item in example_setup:
         master.add(item['biome'], item['center'], item['radius'])
-        plt.imsave('temp.png',master.compile())
-        print([item['biome'] for item in master.biomes[1:]])
-        print(master.context())
-    master.remove(3)
-    plt.imsave('rm.png',master.compile())
-    print([item['biome'] for item in master.biomes[1:]])
+    compiled = master.compile()
+    plt.imsave('heights.png',compiled['heights'])
+    plt.imsave('splats.png', compiled['splat'])
     print(master.context())

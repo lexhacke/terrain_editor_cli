@@ -8,7 +8,7 @@ def base_heightmap(W=512, H=512):
     lower_octaves = noise2d(2, 0.6, 3, freq=0.8, scale=0.008, return_octaves=True)
     fine_detail = noise2d(6, 0.6, 3, freq=0.8, scale=0.05, return_octaves=True)[:, :, 2:] / 4
     perlin = 2*(lower_octaves.sum(axis=-1) + fine_detail.sum(axis=-1)) + 1
-    return perlin / 2
+    return perlin / 10
 
 def mountain_heightmap(center_x, center_y, radius, height=4, W=512, H=512):
     """
@@ -56,11 +56,11 @@ if __name__ == "__main__":
     }
     example_setup = [
         #{'biome': 'hills', 'center': (400, 400), 'radius': 280},
-        #{'biome': 'mountain', 'center': (30, 30), 'radius': 200},
-        {'biome': 'mesa', 'center': (500, 100), 'radius': 320},
+        {'biome': 'mountain', 'center': (230, 230), 'radius': 200},
+        #{'biome': 'mesa', 'center': (500, 100), 'radius': 320},
         #{'biome': 'canyon', 'center': (100, 400), 'radius': 290}
     ]
-    heightmap = base_heightmap() / 4
+    heightmap = base_heightmap()
     #plt.imshow(heightmap)
     #plt.colorbar()
     #plt.title(f"Heightmap (baseplate)")
@@ -71,4 +71,5 @@ if __name__ == "__main__":
         #plt.colorbar()
         #plt.title(f"Heightmap with {object['biome']}")
         #plt.show()
+        
     plt.imsave("example.png", heightmap)

@@ -1,0 +1,19 @@
+## SETUP ##
+1) In your unity editor, drag and drop the "TerrainLex.unitypackage"
+2) Create a terrain 3d object, and drag and drop "splatmapApplier.cs" onto it
+3) In the terrain component of the terrain object, click on the 2nd node "Paint Terrain"
+4) Scroll down until you see a place where you can add layers. Add 4 layers in this order: 
+    layer 1 - your grass texture
+    layer 2 - your rock texture
+    layer 3 - your snow texture
+    layer 4 - any texture (placeholder for now)
+
+## CLI ##
+1) Activate the CLI by running cli.py
+2) It will ask you to enter the path to your Unity project assets folder
+3) Enter your terrain specifications
+4) Open "Heightmap to Terrain" tool in the "Tools" bar in the top command bar
+5) Select your terrain for "terrain" and drag and drop "heightmap.png" into "Heightmap"
+6) Make sure your heightmap and splatmap pngs are "read/write" checked in the inspector
+7) Drag and drop "splat.png" into splatmapApplier's "splat" slot, and the terrain into the "terrain" slot
+8) Run! It will apply the splatmap on void start()

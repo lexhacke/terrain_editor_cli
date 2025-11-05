@@ -126,16 +126,20 @@ When the command involves removing a feature, identify the number of the biome t
 if __name__ == "__main__":
     master = Master(512, 512)
     print("Lex's Terrain CLI Ready :)")
-
+    print("Enter the path where you want your splats and terrains saved: ")
+    path = input()
+    print("Describe your ideal terrain")
     while True:
         response = agent.generate_gpt({'user': input(), 'system': system_prompt(master.context())})
         response = json.loads(response)
-        #print(response)
         if response['operation'] == 'add':
            for arg in response['args']:
               master.add(arg['biome'], arg['center'], arg['radius'])
         elif response['operation'] == 'delete':
             master.remove(int(response['index']))
         print(master.context())
-        plt.imsave('terrain.png', master.compile())
-        print(f"Saved to {os.path.abspath(__file__)[:-6]+"terrain.png"}")
+        obj = master.compile()
+        plt.imsave(path+'\\'+"terrain.png", obj['heights'])
+        plt.imsave(path+'\\'+"splat.png", obj['splat'])
+        print(f"Saved heightmap to {path}"+"\\"+"terrain.png")
+        print(f"Saved splatmap to {path}"+"\\"+"splat.png")
